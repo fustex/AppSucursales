@@ -4,6 +4,8 @@
  */
 package pruebas.proyecto;
 
+import java.util.function.Consumer;
+
 /**
  *
  * @author dugla
@@ -11,9 +13,11 @@ package pruebas.proyecto;
 public class Grafo {
     
   private NodoGrafo pFirst;
+  private int numeroNodos;
 
     public Grafo(NodoGrafo pFirst) {
         this.pFirst = pFirst;
+        this.numeroNodos=0;
     }
 
     /**
@@ -40,7 +44,7 @@ public class Grafo {
             System.out.println("El nodo ya existe en el grafo.");
             return; 
     }
-
+        numeroNodos++;
         nuevo.setpNext(pFirst); 
         pFirst = nuevo; 
 }
@@ -95,5 +99,30 @@ public class Grafo {
                 adyacente = adyacente.getpNext(); 
         }
 }
+        
+        public NodoGrafo buscarPorNombreEstacion(String nombre){
+        NodoGrafo actual = pFirst;
+            while (actual != null) {
+                if (actual.getEstacion().nombreEstacion.equals(nombre)) {
+                    return actual; // Devolver el nodo que coincide con la estación
+                }
+                actual = actual.getpNext();
+            }
+            return null;
+        
+    }
+        
+        public void forEachEstacion(Consumer<String> action) {
+        NodoGrafo actual = pFirst;
+        while (actual != null) {
+            action.accept(actual.getEstacion().getNombreEstacion());
+            actual = actual.getpNext();
+        }
+    }
+        
+        public int getNumeroNodos() {
+            
+        return numeroNodos;
+    }
 }
 
