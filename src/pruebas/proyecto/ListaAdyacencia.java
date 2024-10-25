@@ -117,7 +117,7 @@ public class ListaAdyacencia {
 
         }
     
-    private boolean existeAdyacencia(NodoGrafo nodo) {
+    public boolean existeAdyacencia(NodoGrafo nodo) {
     NodoListaAdyacencia actual = head; // Asumiendo que head es el inicio de la lista de adyacencias
 
     while (actual != null) {

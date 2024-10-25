@@ -83,7 +83,7 @@ public class PanelPestanas extends javax.swing.JFrame {
     
     private void configurarSpinner(Grafo grafo) {
         
-        if (grafo.getNumeroNodos() <= 0){
+        if (grafitot.getNumeroNodos() <= 0){
             SpinnerEdit.setModel(new SpinnerNumberModel(1, 1, 10, 1));
         }else if(grafitot.getNumeroNodos() > 0){
             SpinnerEdit.setModel(new SpinnerNumberModel(1, 1, grafo.getNumeroNodos(), 1));
@@ -351,7 +351,7 @@ public class PanelPestanas extends javax.swing.JFrame {
                 ActualizarBotonGrafoActionPerformed(evt);
             }
         });
-        jPanel1.add(ActualizarBotonGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, 20));
+        jPanel1.add(ActualizarBotonGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, 20));
 
         jTabbedPane1.addTab("Grafo", jPanel1);
 
@@ -376,7 +376,7 @@ public class PanelPestanas extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Ten en cuenta que debes agregar la sucursal antes y seleccionar esa misma sucursal para verificar cuales estaciones estan cubiertas");
+        jLabel8.setText("asd");
 
         jLabel9.setText("Estaciones que pueden ser alcanazadas");
 
