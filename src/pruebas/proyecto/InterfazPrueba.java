@@ -107,6 +107,7 @@ public class InterfazPrueba extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         inputArea.setColumns(20);
+        inputArea.setFont(new java.awt.Font("Bauhaus 93", 0, 14)); // NOI18N
         inputArea.setRows(5);
         jScrollPane1.setViewportView(inputArea);
 

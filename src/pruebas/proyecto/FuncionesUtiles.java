@@ -25,6 +25,10 @@ public class FuncionesUtiles {
         nodo.estacion.setSucursal(true);
     }
     
+    public static void eliminarSucursal(NodoGrafo nodo){
+        nodo.estacion.setSucursal(false);
+    }
+    
     
     
     public static void marcarCubiertas(Grafo grafo, int t) {
