@@ -40,7 +40,7 @@ public class PanelPestanas extends javax.swing.JFrame {
      * Creates new form PanelPestanas
      */
     public PanelPestanas(InterfazPrueba interfacita) {
-        this.interfacita = interfacita;       
+        this.interfacita = interfacita;
         initComponents();
         setLocationRelativeTo(null);
         AreaMostrarCubiertas.setEditable(false);
@@ -54,8 +54,6 @@ public class PanelPestanas extends javax.swing.JFrame {
     private PanelPestanas() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    
     
     public void SetData(String data){
         this.data = data;
@@ -133,7 +131,9 @@ public class PanelPestanas extends javax.swing.JFrame {
     }
 
     // Estilo del grafo
-    graph.setAttribute("ui.stylesheet", "node { fill-color: red; size: 20px; }"); // Ajusta el tamaño aquí
+    graph.setAttribute("ui.stylesheet", "node { fill-color: red; size: 20px; } edge { fill-color: black; }");
+    graph.setAttribute("ui.layout", "fruchterman");
+    graph.setAttribute("ui.repulsion", 3000);
     graph.setAttribute("ui.quality");
     graph.setAttribute("ui.antialias");
     graph.setAttribute("ui.label.size", "16");
@@ -142,7 +142,7 @@ public class PanelPestanas extends javax.swing.JFrame {
     SwingViewer viewer = new SwingViewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
     viewer.enableAutoLayout();
     viewer.addDefaultView(false);
-    
+   
     
     JPanel viewerPanel = (JPanel) viewer.getDefaultView();
     MostrareAcaPanelGrafo.setLayout(new BorderLayout());
@@ -198,6 +198,9 @@ public class PanelPestanas extends javax.swing.JFrame {
     }
 
     // Estilo del grafo
+    
+    graph.setAttribute("ui.layout", "fruchterman");
+    graph.setAttribute("ui.repulsion", 3000);
     graph.setAttribute("ui.quality");
     graph.setAttribute("ui.antialias");
 
@@ -225,12 +228,6 @@ public class PanelPestanas extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        CajitaParadasGestion = new javax.swing.JComboBox<>();
-        AgregarSucursalB = new javax.swing.JButton();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         SeleccionParadas1 = new javax.swing.JComboBox<>();
         SeleccionParadas2 = new javax.swing.JComboBox<>();
@@ -252,12 +249,19 @@ public class PanelPestanas extends javax.swing.JFrame {
         AreaMostrarCubiertas = new javax.swing.JTextArea();
         BotonBFS = new javax.swing.JButton();
         BotonDFS = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         SpinnerEdit = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         ValorT = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        CajitaParadasGestion = new javax.swing.JComboBox<>();
+        AgregarSucursalB = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        RegresarVentana = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -265,80 +269,6 @@ public class PanelPestanas extends javax.swing.JFrame {
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setForeground(new java.awt.Color(255, 153, 0));
         jTabbedPane1.setFont(new java.awt.Font("Bauhaus 93", 0, 14)); // NOI18N
-
-        jPanel2.setBackground(new java.awt.Color(255, 153, 51));
-
-        jLabel5.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("- Coloca las sucursales donde esten disponibles, mira y actualiza el grafo para ver cuales");
-
-        CajitaParadasGestion.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        CajitaParadasGestion.setForeground(new java.awt.Color(255, 153, 51));
-        CajitaParadasGestion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CajitaParadasGestionActionPerformed(evt);
-            }
-        });
-
-        AgregarSucursalB.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        AgregarSucursalB.setText("Agregar Sucursal");
-        AgregarSucursalB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarSucursalBActionPerformed(evt);
-            }
-        });
-
-        jLabel17.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Agregar Sucursal en Parada: ");
-
-        jLabel18.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("- Ten encuenta si la parada ya esta cubierta o si ya tiene una sucursal, no se podra colocar");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(343, 343, 343)
-                        .addComponent(CajitaParadasGestion, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)
-                        .addComponent(AgregarSucursalB))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel5))))
-                .addContainerGap(146, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(77, 77, 77)
-                    .addComponent(jLabel17)
-                    .addContainerGap(705, Short.MAX_VALUE)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(166, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CajitaParadasGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AgregarSucursalB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addGap(334, 334, 334))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(172, 172, 172)
-                    .addComponent(jLabel17)
-                    .addContainerGap(465, Short.MAX_VALUE)))
-        );
-
-        jTabbedPane1.addTab("Gestion", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 153, 51));
 
@@ -363,7 +293,7 @@ public class PanelPestanas extends javax.swing.JFrame {
         jLabel7.setText("Selecciona Parada 2:");
 
         AgregarLineasBB.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        AgregarLineasBB.setText("Agregar Lineas");
+        AgregarLineasBB.setText("Conectar Paradas");
         AgregarLineasBB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AgregarLineasBBActionPerformed(evt);
@@ -388,7 +318,7 @@ public class PanelPestanas extends javax.swing.JFrame {
                 .addGap(205, 205, 205))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(397, 397, 397)
-                .addComponent(AgregarLineasBB, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AgregarLineasBB, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -404,7 +334,7 @@ public class PanelPestanas extends javax.swing.JFrame {
                     .addComponent(SeleccionParadas2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(109, 109, 109)
                 .addComponent(AgregarLineasBB, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Conectar Lineas", jPanel3);
@@ -425,10 +355,10 @@ public class PanelPestanas extends javax.swing.JFrame {
         );
         MostrareAcaPanelGrafoLayout.setVerticalGroup(
             MostrareAcaPanelGrafoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
+            .addGap(0, 518, Short.MAX_VALUE)
         );
 
-        jPanel1.add(MostrareAcaPanelGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 680, 500));
+        jPanel1.add(MostrareAcaPanelGrafo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 790, 520));
 
         jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -440,10 +370,10 @@ public class PanelPestanas extends javax.swing.JFrame {
         jLabel2.setText("Rojo: No Cubierta");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 698, -1));
 
-        jLabel3.setFont(new java.awt.Font("Bauhaus 93", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("- Si todos los nodos dejan de tener color rojo, significa que ya tienes toda la ciudad cubierta!");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 580, 800, 50));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 600, 800, 50));
 
         ActualizarBotonGrafo.setFont(new java.awt.Font("Bauhaus 93", 0, 14)); // NOI18N
         ActualizarBotonGrafo.setText("Actualizar");
@@ -463,7 +393,7 @@ public class PanelPestanas extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 620, 697, -1));
 
-        jLabel16.setFont(new java.awt.Font("Bauhaus 93", 0, 14)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Grafo:");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 697, -1));
@@ -497,10 +427,6 @@ public class PanelPestanas extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Bauhaus 93", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Ten en cuenta que debes agregar la sucursal antes y seleccionar esa misma sucursal para verificar cuales estaciones estan cubiertas");
-
         jLabel9.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Estaciones que pueden ser alcanazadas");
@@ -509,15 +435,19 @@ public class PanelPestanas extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Selecciona las t a cubrir: ");
+        jLabel11.setText("Seleccione la estacion para ver sus cubiertas, incluyendo tu estacion:");
 
         ValorT.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
-        ValorT.setText("Aceptar valor de t");
+        ValorT.setText("Actualizar valor de t");
         ValorT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ValorTActionPerformed(evt);
             }
         });
+
+        jLabel13.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Selecciona las t paradas a cubrir: ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -527,59 +457,136 @@ public class PanelPestanas extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(SpinnerEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(ValorT)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(CajitaParadasBusqueda, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(BotonDFS)
-                                        .addGap(35, 35, 35)
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(BotonBFS))))
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel8))
-                        .addGap(0, 96, Short.MAX_VALUE))))
+                        .addGap(38, 38, 38)
+                        .addComponent(ValorT))
+                    .addComponent(jLabel11)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(CajitaParadasBusqueda, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addComponent(BotonDFS)
+                            .addGap(35, 35, 35)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BotonBFS)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(73, 73, 73))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
                     .addComponent(SpinnerEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ValorT))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
-                .addGap(26, 26, 26)
+                    .addComponent(ValorT)
+                    .addComponent(jLabel13))
+                .addGap(32, 32, 32)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(CajitaParadasBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BotonDFS, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BotonBFS, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel12)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BotonBFS, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotonDFS, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cobertura Sucursal", jPanel4);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 5, 1020, 700));
+        jPanel2.setBackground(new java.awt.Color(255, 153, 51));
+
+        jLabel5.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("- Coloca las sucursales donde esten disponibles, mira y actualiza el grafo para ver cuales");
+
+        CajitaParadasGestion.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        CajitaParadasGestion.setForeground(new java.awt.Color(255, 153, 51));
+        CajitaParadasGestion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CajitaParadasGestionActionPerformed(evt);
+            }
+        });
+
+        AgregarSucursalB.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        AgregarSucursalB.setText("Agregar Sucursal");
+        AgregarSucursalB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarSucursalBActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Agregar Sucursal en Parada: ");
+
+        jLabel18.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("- Ten encuenta si la parada ya esta cubierta o si ya tiene una sucursal, no se podra colocar");
+
+        RegresarVentana.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        RegresarVentana.setText("Regresar");
+        RegresarVentana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegresarVentanaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CajitaParadasGestion, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
+                        .addComponent(AgregarSucursalB))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel5)
+                            .addComponent(RegresarVentana))))
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(86, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(CajitaParadasGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel17))
+                    .addComponent(AgregarSucursalB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(69, 69, 69)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(279, 279, 279)
+                .addComponent(RegresarVentana)
+                .addGap(80, 80, 80))
+        );
+
+        jTabbedPane1.addTab("Gestion", jPanel2);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 5, 1020, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -607,12 +614,12 @@ public class PanelPestanas extends javax.swing.JFrame {
         
         if (t == 0){
             t = 3;
-            JOptionPane.showMessageDialog(rootPane, "Por Default, el valor de t = 3. Agregado con éxito.");
+            JOptionPane.showMessageDialog(rootPane, "Por Default, el valor de t = 3. Sucursal agregada con éxito.");
         }else if (t >= grafitot.getNumeroNodos()){
             t = 3;
-            JOptionPane.showMessageDialog(rootPane, "Valor de t no valido, estableciento t = 3 nuevamente. Coloque un valor de t menor al numero de estaciones que se puede alcanzar");
+            JOptionPane.showMessageDialog(rootPane, "Sucursal agregada con un valor de t = 3. el valor de t es muy grade, verifiquelo y pruebe con uno mas pequeño");
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Valor de t = " + t + " actualizado con éxito.");
+            JOptionPane.showMessageDialog(rootPane, "Sucursal con valor de t = " + t + " agregada con éxito.");
         }
     
         
@@ -677,6 +684,13 @@ public class PanelPestanas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ValorTActionPerformed
 
+    private void RegresarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarVentanaActionPerformed
+        // TODO add your handling code here:
+        InterfazPrueba interfaanterior = new InterfazPrueba();
+        interfaanterior.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_RegresarVentanaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -723,6 +737,7 @@ public class PanelPestanas extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CajitaParadasBusqueda;
     private javax.swing.JComboBox<String> CajitaParadasGestion;
     private javax.swing.JPanel MostrareAcaPanelGrafo;
+    private javax.swing.JButton RegresarVentana;
     private javax.swing.JComboBox<String> SeleccionParadas1;
     private javax.swing.JComboBox<String> SeleccionParadas2;
     private javax.swing.JSpinner SpinnerEdit;
@@ -730,6 +745,7 @@ public class PanelPestanas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -740,7 +756,6 @@ public class PanelPestanas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
