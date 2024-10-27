@@ -5,13 +5,19 @@
 package pruebas.proyecto;
 
 /**
- *
- * @author ffust
+ *Clase que representa los NodoListaAdyacencia
+ *@author Francisco Fustero
  */
 public class NodoListaAdyacencia {
     
     Estacion estacion;
     NodoListaAdyacencia pNext;
+    
+    /**
+     * Constructor de la clase NodoListaAdyacenncia dado la estacion como parametro
+     * @author Fransisco Fustero
+     * @param estacion para el constructor de la clase
+     */
 
     public NodoListaAdyacencia(Estacion estacion) {
         this.estacion = estacion;
@@ -19,21 +25,27 @@ public class NodoListaAdyacencia {
     }
 
     /**
-     * @return the estacion
+     * Metodo que obtiene la estacion de los nodos de la lista adyacencia
+     * @author Francisco Fustero
+     * @return la estacion
      */
     public Estacion getEstacion() {
         return estacion;
     }
 
     /**
-     * @return the pNext
+     * Metodo que obtiene el apuntador al siguiente del nodo lista de adyacencia
+     * @author Francisco Fustero
+     * @return el pNext
      */
     public NodoListaAdyacencia getpNext() {
         return pNext;
     }
 
     /**
-     * @param pNext the pNext to set
+     * Metodo que coloca el apuntador al siguiente de los nodos de la lista de adyacencia
+     * @author Francisco Fustero
+     * @param pNext el pNext para colocar
      */
     public void setpNext(NodoListaAdyacencia pNext) {
         this.pNext = pNext;

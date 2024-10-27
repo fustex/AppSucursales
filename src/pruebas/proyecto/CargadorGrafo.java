@@ -10,24 +10,46 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.json.JSONTokener;
 import org.json.JSONTokener;
+
 /**
- *
- * @author dugla
+ * Clase encargada de cargar un grafo desde un archivo JSON.
+ * @author Anthony Caldera
+ * se hizo esta clase para poder crear un grafo luego de leer el json seleccionado desde el jfilechooser, se recibe a string y se lee en json nuevamente para tener mas facilidad
  */
+
+
 public class CargadorGrafo {
     
     private InterfazPrueba inter;
     private String datito;
     private JSONObject jsonObject;
     
-    
+    /**
+     * Método para enviar datos al cargador.
+     * @author Anthony Caldera
+     * @param datito Datos a enviar.
+     */
     public void enviardatito(String datito){
         this.datito = datito;
     }
     
+    /**
+     * Constructor de la clase CargadorGrafo.
+     * @author Anthony Caldera
+     * @param inter Interfaz de prueba asociada.
+     */
+    
     public CargadorGrafo(InterfazPrueba inter) {
       this.inter = inter;
     }
+    
+    /**
+     * Carga un grafo desde un string en formato JSON.
+     * @author Anthony Caldera
+     * @param datito String en formato JSON.
+     * @return Grafo cargado.
+     * con lo antes mencionado, obtenemos nuestro JSON a partir de nuestra interfaz, se pasa como string y luego se pasa a JSON nuevamente
+     */
     
     public static Grafo cargarGrafoDesdeJson(String datito) {
     Grafo grafo = new Grafo(null); // Inicializa el grafo con pFirst como null
@@ -125,6 +147,14 @@ public class CargadorGrafo {
     return grafo;
 }
     
+    /**
+     * Se busca si la estacion es combinada y le pasamos por parametro el grafo y el nombre de la estacion
+     * @author Anthony Caldera
+     * @param grafo grafo a pasar
+     * @param nombreEstacion nombre de la estacion
+     * @return nodo o null
+     */
+    
     private static NodoGrafo buscarEstacionCombinada(Grafo grafo, String nombreEstacion) {
     // Buscar la estación en su forma original
     NodoGrafo nodo = buscarNodo(grafo, nombreEstacion);
@@ -141,7 +171,13 @@ public class CargadorGrafo {
 
     return null; // Si no se encuentra ninguna de las dos
 }
-
+    
+    /**
+     * Se agrega las adyacencias a cada estacion, debido a que en este formato se usara listadeadyacencia para conectar nodos del grafo
+     * @author Anthony Caldera
+     * @param nodo1 un nodo grafo
+     * @param nodo2  otro nodo grafo
+     */
 
     private static void agregarAdyacencia(NodoGrafo nodo1, NodoGrafo nodo2) {
     if (!nodo1.getListaAdyacencia().existeAdyacencia(nodo2)) {
@@ -151,9 +187,16 @@ public class CargadorGrafo {
         nodo2.getListaAdyacencia().nuevaAdyacencia(nodo1); // Adyacencia inversa
     }
 }
+    
+    /**
+     * Metodo que busca un nodo del grafo por nombre de la estacion
+     * @author Anthony Caldera
+     * @param grafo grafo para buscar
+     * @param nombreEstacion  nombre de la estacion
+     * @return nodo encontrado o nulo si no encuentra
+     */
 
-// Método para buscar un nodo en el grafo por nombre de estación
-private static NodoGrafo buscarNodo(Grafo grafo, String nombreEstacion) {
+    private static NodoGrafo buscarNodo(Grafo grafo, String nombreEstacion) {
     NodoGrafo nodoActual = grafo.getpFirst();
     while (nodoActual != null) {
         if (nodoActual.getEstacion().getNombreEstacion().equals(nombreEstacion)) {

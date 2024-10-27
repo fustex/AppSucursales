@@ -3,18 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package pruebas.proyecto;
-//esta parte era un archivo de pruebas en la consola. Si hay prints
+
 /**
- *
- * @author ffust
+ * Clase principal para probar metodos en la consola y verificar si todo esta funcionando correctamente
+ * @author Francisco Fustero
  */
 public class PruebasProyecto {
 
     /**
-     * @param args the command line arguments
+     * El main para ir probando todos los metodos por consola y verificando si funcionan todos correctamente
+     * @author Francisco Fustero
+     * @param args para correr el main (intuititvo al crear el proyecto aca)
      */
     public static void main(String[] args) {
         
+        
+        //llamados de metodos y haciendo revisiones
         Estacion estacion1 = new Estacion("sabana grande");
         Estacion estacion2 = new Estacion("palo verde");
         Estacion estacion3 = new Estacion("chacaito");
