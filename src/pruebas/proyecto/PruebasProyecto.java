@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package pruebas.proyecto;
-
+//esta parte era un archivo de pruebas en la consola. Si hay prints
 /**
  *
  * @author ffust

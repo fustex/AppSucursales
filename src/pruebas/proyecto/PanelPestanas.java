@@ -72,85 +72,12 @@ public class PanelPestanas extends javax.swing.JFrame {
         CajitaParadasBusqueda.removeAllItems();
         grafo.forEachEstacion(nombre -> CajitaParadasBusqueda.addItem(nombre));
         
-        SwingUtilities.invokeLater(() -> dibujarGrafo(grafo));
+        SwingUtilities.invokeLater(() -> actualizarGrafo(grafo));
     }
     public void GrafoInterfaz(Grafo grafitot){
         this.grafitot = grafitot;
     }
     
-    private void configurarSpinner(Grafo grafitot) {
-        
-        if (grafitot.getNumeroNodos() <= 0){
-            SpinnerEdit.setModel(new SpinnerNumberModel(1, 1, 10, 1));
-        }else if(grafitot.getNumeroNodos() > 0){
-            SpinnerEdit.setModel(new SpinnerNumberModel(1, 1, grafitot.getNumeroNodos(), 1));
-        }
-        
-
-        
-        // Configura el modelo del JSpinner con un rango de 1 al numero maximo de nodos del grafo
-
-        // Deshabilitar la edición directa
-        JComponent editor = SpinnerEdit.getEditor();
-        if (editor instanceof JSpinner.DefaultEditor) {
-            ((JSpinner.DefaultEditor) editor).getTextField().setEditable(false);
-        }
-    }
-    
-
-    
-    public void dibujarGrafo(Grafo grafitot) {
-    Graph graph = new SingleGraph("Grafo");
-
-    // Agregar nodos
-    NodoGrafo actual = grafitot.getpFirst();
-    while (actual != null) {
-        String nombreEstacion = actual.getEstacion().getNombreEstacion().replace(":", "").replace(" ", "_");
-        graph.addNode(nombreEstacion).setAttribute("ui.label", actual.getEstacion().getNombreEstacion());
-        actual = actual.getpNext();
-    }
-
-    // Agregar aristas
-    actual = grafitot.getpFirst();
-    while (actual != null) {
-        String nombreEstacion = actual.getEstacion().getNombreEstacion().replace(":", "").replace(" ", "_");
-        NodoListaAdyacencia adyacente = actual.getListaAdyacencia().getHead();
-        while (adyacente != null) {
-            String nombreAdyacente = adyacente.getEstacion().getNombreEstacion().replace(":", "").replace(" ", "_");
-            String edgeId = nombreEstacion + "-" + nombreAdyacente;
-            if (graph.getEdge(edgeId) == null) {
-                try {
-                    graph.addEdge(edgeId, nombreEstacion, nombreAdyacente, true);
-                } catch (EdgeRejectedException e) {
-                    System.out.println("Edge rejected: " + edgeId);
-                }
-            }
-            adyacente = adyacente.getpNext();
-        }
-        actual = actual.getpNext();
-    }
-
-    // Estilo del grafo
-    graph.setAttribute("ui.stylesheet", "node { fill-color: red; size: 20px; } edge { fill-color: black; }");
-    graph.setAttribute("ui.layout", "fruchterman");
-    graph.setAttribute("ui.repulsion", 3000);
-    graph.setAttribute("ui.quality");
-    graph.setAttribute("ui.antialias");
-    graph.setAttribute("ui.label.size", "16");
-
-    // Crear el GraphViewer
-    SwingViewer viewer = new SwingViewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
-    viewer.enableAutoLayout();
-    viewer.addDefaultView(false);
-   
-    
-    JPanel viewerPanel = (JPanel) viewer.getDefaultView();
-    MostrareAcaPanelGrafo.setLayout(new BorderLayout());
-    MostrareAcaPanelGrafo.removeAll();
-    MostrareAcaPanelGrafo.add(viewerPanel, BorderLayout.CENTER);
-    MostrareAcaPanelGrafo.revalidate();
-    MostrareAcaPanelGrafo.repaint();
-}
     
     public void actualizarGrafo(Grafo grafitot) {
     Graph graph = new SingleGraph("Grafo Actualizado");
@@ -262,6 +189,7 @@ public class PanelPestanas extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         RegresarVentana = new javax.swing.JButton();
+        EliminarSucursalB = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -545,37 +473,54 @@ public class PanelPestanas extends javax.swing.JFrame {
             }
         });
 
+        EliminarSucursalB.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
+        EliminarSucursalB.setText("Eliminar Sucursal");
+        EliminarSucursalB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarSucursalBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(CajitaParadasGestion, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(AgregarSucursalB))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
                             .addComponent(jLabel5)
-                            .addComponent(RegresarVentana))))
-                .addContainerGap(147, Short.MAX_VALUE))
+                            .addComponent(RegresarVentana)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(EliminarSucursalB)))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(CajitaParadasGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel17))
-                    .addComponent(AgregarSucursalB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(86, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(CajitaParadasGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17))
+                        .addGap(69, 69, 69))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(AgregarSucursalB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(EliminarSucursalB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)))
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
@@ -601,8 +546,10 @@ public class PanelPestanas extends javax.swing.JFrame {
 
     private void ActualizarBotonGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarBotonGrafoActionPerformed
         // TODO add your handling code here:
+        FuncionesUtiles.desmarcarCubiertas(grafitot);
         FuncionesUtiles.marcarCubiertas(grafitot, t);
         grafitot.printGrafo();
+        
         SwingUtilities.invokeLater(() -> actualizarGrafo(grafitot));
         
     }//GEN-LAST:event_ActualizarBotonGrafoActionPerformed
@@ -646,9 +593,7 @@ public class PanelPestanas extends javax.swing.JFrame {
     private void BotonDFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonDFSActionPerformed
         // TODO add your handling code here:
         NodoGrafo estaciondfs = grafitot.buscarPorNombreEstacion(CajitaParadasBusqueda.getSelectedItem().toString());
-        t = (Integer) SpinnerEdit.getValue();
-        ListaSimple ListaEnRango = FuncionesUtiles.obtenerNodosEnRangoDFS(grafitot, estaciondfs, t);
-        
+        ListaSimple ListaEnRango = FuncionesUtiles.obtenerNodosEnRangoDFS(grafitot, estaciondfs, t);       
         System.out.println(ListaEnRango.ListaMostrada());
         AreaMostrarCubiertas.setText(ListaEnRango.ListaMostrada());
         JOptionPane.showMessageDialog(rootPane, "agregado al cuadro");
@@ -663,11 +608,10 @@ public class PanelPestanas extends javax.swing.JFrame {
     private void BotonBFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBFSActionPerformed
         // TODO add your handling code here:
         NodoGrafo estacionbfs = grafitot.buscarPorNombreEstacion(CajitaParadasBusqueda.getSelectedItem().toString());
-        Integer estacionestbfs = (Integer) SpinnerEdit.getValue();
-        //ListaSimple ListaEnRango = FuncionesUtiles.BFS(grafitot, estacionbfs, estacionestbfs);
-        //System.out.println(ListaEnRango.ListaMostrada());
-        //AreaMostrarCubiertas.setText(ListaEnRango.ListaMostrada());
-        //JOptionPane.showMessageDialog(rootPane, "agregado al cuadro");
+        ListaSimple ListaEnRango = FuncionesUtiles.obtenerNodosEnRangoBFS(grafitot, estacionbfs, t);
+        System.out.println(ListaEnRango.ListaMostrada());
+        AreaMostrarCubiertas.setText(ListaEnRango.ListaMostrada());
+        JOptionPane.showMessageDialog(rootPane, "agregado al cuadro");
     }//GEN-LAST:event_BotonBFSActionPerformed
 
     private void ValorTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValorTActionPerformed
@@ -690,6 +634,13 @@ public class PanelPestanas extends javax.swing.JFrame {
         interfaanterior.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_RegresarVentanaActionPerformed
+
+    private void EliminarSucursalBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarSucursalBActionPerformed
+        // TODO add your handling code here:
+        NodoGrafo estacionEncontrada = grafitot.buscarPorNombreEstacion(CajitaParadasGestion.getSelectedItem().toString());
+        FuncionesUtiles.eliminarSucursal(estacionEncontrada);
+        JOptionPane.showMessageDialog(rootPane, estacionEncontrada.estacion.nombreEstacion + " Eliminada con éxito");
+    }//GEN-LAST:event_EliminarSucursalBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -736,6 +687,7 @@ public class PanelPestanas extends javax.swing.JFrame {
     private javax.swing.JButton BotonDFS;
     private javax.swing.JComboBox<String> CajitaParadasBusqueda;
     private javax.swing.JComboBox<String> CajitaParadasGestion;
+    private javax.swing.JButton EliminarSucursalB;
     private javax.swing.JPanel MostrareAcaPanelGrafo;
     private javax.swing.JButton RegresarVentana;
     private javax.swing.JComboBox<String> SeleccionParadas1;

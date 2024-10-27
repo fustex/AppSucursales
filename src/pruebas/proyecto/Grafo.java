@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 /**
  *
- * @author dugla
+ * @author ffuste
  */
 public class Grafo {
     

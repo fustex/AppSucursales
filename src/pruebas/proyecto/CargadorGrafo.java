@@ -33,6 +33,7 @@ public class CargadorGrafo {
     Grafo grafo = new Grafo(null); // Inicializa el grafo con pFirst como null
 
     try {
+        //nuestro archivo que extraimos del texto del textarea de la primera interfaz lo volvemos a pasar en json para trabajar mejor en esta parte
         JSONObject jsonObject = new JSONObject(new JSONTokener(datito));
 
         // Obtener el nombre de la red (ej. "Metro de Caracas")

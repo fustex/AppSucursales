@@ -123,48 +123,54 @@ public class FuncionesUtiles {
     }  
     
     public static ListaSimple obtenerNodosEnRangoBFS(Grafo grafo, NodoGrafo nodoInicial, int t) {
-        if (grafo == null || nodoInicial == null || t < 0) {
-            throw new IllegalArgumentException("El grafo y el nodo no pueden ser nulos, y t debe ser un entero positivo.");
-        }
+    if (grafo == null || nodoInicial == null || t < 0) {
+        throw new IllegalArgumentException("El grafo y el nodo no pueden ser nulos, y t debe ser un entero positivo.");
+    }
 
-        ListaSimple nodosEnRango = new ListaSimple();
-        ListaSimple visitados = new ListaSimple();
-        ListaSimple cola = new ListaSimple(); // Usando ListaSimple como cola
-        
-        cola.agregar(nodoInicial.getEstacion()); // Agregar la estación del nodo inicial a la cola
-        int distancia = 0;
+    ListaSimple nodosEnRango = new ListaSimple();
+    Cola cola = new Cola(); // Usando la clase Cola
+    ListaSimple visitados = new ListaSimple(); // Para llevar un registro de nodos visitados
 
-        while (!cola.estaVacia() && distancia <= t) {
-            int size = cola.getSize(); // Tamaño de la cola en el nivel actual
+    cola.agregar(nodoInicial.getEstacion()); // Agregar la estación del nodo inicial a la cola
+    visitados.agregar(nodoInicial.getEstacion()); // Marcar el nodo inicial como visitado
+    int distancia = 0;
 
-            for (int i = 0; i < size; i++) {
-                Estacion estacionActual = (Estacion) cola.eliminarPrimero(); // Obtener y eliminar la estación de la cola
-                NodoGrafo nodo = buscarNodoPorEstacion(grafo, estacionActual); // Buscar el nodo correspondiente
+    while (!cola.estaVacia() && distancia <= t) {
+        int size = cola.getSize(); // Tamaño de la cola en el nivel actual
 
-                if (nodo == null || visitados.contiene(nodo.getEstacion())) {
-                    continue; // Si el nodo es nulo o ya fue visitado, continuar
+        for (int i = 0; i < size; i++) {
+            Estacion estacionActual = cola.eliminar(); // Obtener y eliminar la estación de la cola
+            NodoGrafo nodoActual = buscarNodoPorEstacion(grafo, estacionActual); // Buscar el nodo correspondiente
+
+            // Agregar el nodo a la lista de nodos en rango
+            nodosEnRango.agregar(nodoActual.getEstacion());
+
+            // Recorrer las adyacencias
+            NodoListaAdyacencia adyacente = nodoActual.getListaAdyacencia().getHead();
+            while (adyacente != null) {
+                NodoGrafo siguienteNodo = buscarNodoPorEstacion(grafo, adyacente.estacion);
+                if (siguienteNodo != null && !visitados.contiene(siguienteNodo.getEstacion())) {
+                    cola.agregar(siguienteNodo.getEstacion()); // Agregar la estación del nodo a la cola
+                    visitados.agregar(siguienteNodo.getEstacion()); // Marcar como visitado
                 }
-
-                // Marcar el nodo como visitado
-                visitados.agregar(nodo.getEstacion());
-
-                // Agregar el nodo a la lista de nodos en rango
-                nodosEnRango.agregar(nodo.getEstacion());
-
-                // Recorrer las adyacencias
-                NodoListaAdyacencia adyacente = nodo.getListaAdyacencia().getHead();
-                while (adyacente != null) {
-                    NodoGrafo siguienteNodo = buscarNodoPorEstacion(grafo, adyacente.estacion);
-                    if (siguienteNodo != null && !visitados.contiene(siguienteNodo.getEstacion())) {
-                        cola.agregar(siguienteNodo.getEstacion()); // Agregar la estación del nodo a la cola
-                    }
-                    adyacente = adyacente.getpNext();
-                }
+                adyacente = adyacente.getpNext();
             }
-            distancia++; // Incrementar la distancia después de procesar todos los nodos en el nivel actual
         }
+        distancia++; // Incrementar la distancia después de procesar todos los nodos en el nivel actual
+    }
 
-        return nodosEnRango; // Esta función retorna una lista de nodos en rango
+    return nodosEnRango; // Retornar la lista de nodos alcanzables
+}
+    
+    public static void desmarcarCubiertas(Grafo grafo){
+        NodoGrafo actual = grafo.getpFirst();
+        while(actual != null){
+            if (actual.estacion.sucursal !=  true){
+                actual.estacion.setCubierta(false);
+                
+            }
+            actual = actual.getpNext();
+        }
     }
     
     
