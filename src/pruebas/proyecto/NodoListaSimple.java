@@ -5,14 +5,19 @@
 package pruebas.proyecto;
 
 /**
- *
- * @author ffust
+ *Clase que representa los Nodos de una lista simple
+ * @author Anthony Caldera
  */
 public class NodoListaSimple {
     
-    NodoListaSimple pNext;
-    
+    NodoListaSimple pNext; 
     Estacion estacion;
+    
+    /**
+     * Constructor de la clase Nodo de lista simple correspondiente
+     * @author Anthony Caldera
+     * @param estacion para el constructor de la clase
+     */
 
     public NodoListaSimple(Estacion estacion) {
         this.estacion = estacion;
@@ -20,28 +25,36 @@ public class NodoListaSimple {
     }
 
     /**
-     * @return the pNext
+     * Metodo que obtienes el apuntador del siguiente de los nodos de la lista simple
+     * @author Anthony Caldera
+     * @return el pNext
      */
     public NodoListaSimple getpNext() {
         return pNext;
     }
 
     /**
-     * @param pNext the pNext to set
+     * Metodo que coloca el apuntador al siguiente de los nodos de la lista simple
+     * @author Anthony Caldera
+     * @param pNext el pNext para colocar
      */
     public void setpNext(NodoListaSimple pNext) {
         this.pNext = pNext;
     }
 
     /**
-     * @return the estacion
+     * Metodo que obtienes la estacion de los nodos la lista simple 
+     * @author Anthony Caldera
+     * @return la estacion
      */
     public Estacion getEstacion() {
         return estacion;
     }
 
     /**
-     * @param estacion the estacion to set
+     * Metodo que coloca el apuntador del siguiente de los nodos de la lista simple
+     * @author Anthony Caldera
+     * @param estacion la estacion para colocar
      */
     public void setEstacion(Estacion estacion) {
         this.estacion = estacion;

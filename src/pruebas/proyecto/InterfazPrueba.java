@@ -16,14 +16,15 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 /**
- *
- * @author dugla
+ * Clase que representa la interfaz gráfica de la aplicación.
+ * @author Anthony Caldera
  */
 public class InterfazPrueba extends javax.swing.JFrame {
     
 
     /**
-     * Creates new form InterfazPrueba
+     * Inicializacion de la interfaz, para colocar algunos detalles que tendra la interfaz
+     * @author Anthony Caldera
      */
     public InterfazPrueba() {
         initComponents();
@@ -32,27 +33,30 @@ public class InterfazPrueba extends javax.swing.JFrame {
         Boton1.setEnabled(false); // no puedo darle al boton hasta que haya un metodo que me lo pueda acceder
     }
     
+    /**
+     * Con este metodo, validamos que el archivo seleccionado con jfilechooser por el usuario, tenga el mismo formato de lo que esta en el proyecto, siguiendo la misma logica de nombre parada, nombre estacion, etc etc
+     * @author Anthony Caldera
+     * @param jsonString le pasamos el parametro json que fue previamente transformado a string al obtener el texto
+     * @return verdadero si sigue el mismo formato que nos indica el proyecto o falso en el caso contrario
+     */
     
-    
-    //metodo para validar si el archivo seleccionado del jfilechooser cumple con el mismo formato que nos indica el proyecto
     private static boolean validarFormatoJson(String jsonString) {
         try {
-            JSONObject jsonObject = new JSONObject(new JSONTokener(jsonString));
-            for (String key : jsonObject.keySet()) {
-                JSONArray metro = jsonObject.getJSONArray(key); // No validamos el nombre, solo la estructura
-                for (int i = 0; i < metro.length(); i++) {
-                    JSONObject line = metro.getJSONObject(i);
-                    String lineName = line.keys().next();
-                    JSONArray stops = line.getJSONArray(lineName);
-                    for (int j = 0; j < stops.length(); j++) {
-                        Object stop = stops.get(j);
-                        if (stop instanceof JSONObject) {
-                            // Validar formato de parada con nombre y conexión
+            JSONObject jsonObject = new JSONObject(new JSONTokener(jsonString)); //transformamos de string a archivo json
+            for (String key : jsonObject.keySet()) { //Recorre todas las claves del objeto JSON. Se asume que cada clave representa un conjunto de líneas de metro o en el caso del Transmilenio
+                JSONArray metro = jsonObject.getJSONArray(key); //Obtiene un arreglo JSON asociado a la clave actual (que representa las lineas del metro o el caso del transmilenio)
+                for (int i = 0; i < metro.length(); i++) { //iteras sobre cada linea del metro o caso del transmilenio
+                    JSONObject line = metro.getJSONObject(i); //Obtiene el objeto JSON que representa la línea de metro o caso del transmilenio.
+                    String lineName = line.keys().next(); // Obtiene el nombre de la línea (se asume que hay una única clave por línea). o caso del transmilenio
+                    JSONArray stops = line.getJSONArray(lineName); //Obtiene el arreglo de paradas para esa línea o caso del transmilenio
+                    for (int j = 0; j < stops.length(); j++) { //Itera sobre cada parada en el arreglo de paradas
+                        Object stop = stops.get(j); //Obtiene el objeto correspondiente a la parada
+                        if (stop instanceof JSONObject) { // Si stop es un JSONObject
                             JSONObject stopObj = (JSONObject) stop;
-                            if (stopObj.keys().hasNext()) {
+                            if (stopObj.keys().hasNext()) { //Se valida que tenga al menos una clave.
                                 String from = stopObj.keys().next();
-                                String to = stopObj.getString(from);
-                                if (from.isEmpty() || to.isEmpty()) {
+                                String to = stopObj.getString(from); //Se obtiene la clave (que representa el nombre de la parada) y su valor (que representa la conexión)
+                                if (from.isEmpty() || to.isEmpty()) {// Se verifica que tanto el nombre como la conexión no estén vacíos.
                                     return false;
                                 }
                             } else {
@@ -65,15 +69,19 @@ public class InterfazPrueba extends javax.swing.JFrame {
                     }
                 }
             }
-            return true;
-        } catch (Exception e) {
+            return true; // Si todas las validaciones se pasan, el método retorna true, indicando que el formato del JSON es válido según las reglas definidas
+        } catch (Exception e) { // Si ocurre cualquier excepción durante el proceso (como un error de formato JSON), se captura y se retorna false.
             return false;
         }
     }
     
-    
-    // Define el filtro de archivos
-    
+    /**
+     * Este metodo para extraer y retornar la extensión de un archivo dado. Si el archivo no tiene una extensión (es decir, no contiene un punto en su nombre), el método devuelve una cadena vacía
+     * @author Anthony Caldera
+     * @param file que seleccionaremos previamente del jfilchooser
+     * @return el string de una extension de un archivo dado y si no hay extension, devuelve un string vacio
+     */
+  
     private static String getFileExtension(File file) {
         String name = file.getName();
         int lastIndex = name.lastIndexOf('.');
@@ -167,12 +175,19 @@ public class InterfazPrueba extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        
         //crea la variable para poder seleccionar mi archivo json
         JFileChooser fileChooser = new JFileChooser();
 
         // Define el filtro de archivos, o sea que desplega unas opciones que me acepten solo archivos de tipo jSon aunque eso puede cambiarse
         fileChooser.setFileFilter(new FileFilter() {
             @Override
+            /**
+             * Este metodo nos indica que nos devuelve un booleano si el archivo seleccionado es json o no
+             * @author Anthony Caldera
+             * @return true o false
+             */
             public boolean accept(File file) {
                 if (file.isDirectory()) {
                     return true;
@@ -182,11 +197,19 @@ public class InterfazPrueba extends javax.swing.JFrame {
             }
 
             @Override
+            
+            /**
+             * Este metodo nos ayudara con el filtro para conseguir mas facil uun tipo de archivo json por filtrado, pero sera la descripcion. No es este metodo para eso en especifico
+             * @author Anthony Caldera
+             * @return String de como sera nombrado el filtro
+             */
             public String getDescription() {
                 return "Archivos JSON (*.json)";
             }
         });
-
+        
+        
+        // esto nos ayudara seleccionar el archivo con el jfilechooser
         int result = fileChooser.showOpenDialog(rootPane);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
@@ -198,16 +221,16 @@ public class InterfazPrueba extends javax.swing.JFrame {
                         "Error de tipo de archivo",
                         JOptionPane.ERROR_MESSAGE);
             } else {
-                //ahora procedemos a leer ese archvi json correspondiente
+                //ahora procedemos a leer ese archivo json correspondiente
                 try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
                     StringBuilder jsonContent = new StringBuilder();
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        jsonContent.append(line).append("\n");
+                        jsonContent.append(line).append("\n"); //vamos escribiendo linea por linea nuestro archivo json en string
                     }
                     JOptionPane.showMessageDialog(rootPane, "Archivo seleccionado correctamente");
                     Boton1.setEnabled(true); // ya podemos usar el boton para acceder a la siguiente accion
-                    inputArea.setText(jsonContent.toString()); // escribimos nuestro json  previamente transformado a string en text area
+                    inputArea.setText(jsonContent.toString()); // escribimos nuestro json leido correctamente previamente transformado a string en el texto de area para validar el formato posteriormente
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(rootPane, //caso si ocurre un error inesperado
                             "Error al leer el archivo: " + e.getMessage(),
@@ -221,21 +244,21 @@ public class InterfazPrueba extends javax.swing.JFrame {
     private void Boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton1ActionPerformed
         // TODO add your handling code here:
         //creamos un string para obtener el archivo previamente escrito en el text area
-        String traertexto = inputArea.getText();
+        String traertexto = inputArea.getText(); //obtenemos el texto del texto de area
         boolean Esvalido = validarFormatoJson(traertexto); // verificamos si sigue el formato que nos indica el proyecto de como tiene que ser el archivo json
         if (Esvalido) {
                 JOptionPane.showMessageDialog(rootPane, "Formato válido");
-                CargadorGrafo grafito = new CargadorGrafo(this);
-                grafito.enviardatito(traertexto);// enviamos nuestro archivo para que se construya en la clase grafo y lo enviamos
+                CargadorGrafo grafito = new CargadorGrafo(this); // creamos un tipo de dato CargadorGrafo para construir nuestro grafo a partir de lo obtenido en el text area
+                grafito.enviardatito(traertexto);// enviamos nuestro archivo para que se construya en la clase CargadorGrafo y lo enviamos
                 
-                PanelPestanas pestanitas = new PanelPestanas(this);
-                pestanitas.SetData(traertexto);
+                PanelPestanas pestanitas = new PanelPestanas(this); //creamos un tipo de dato PanelPestanas para abrir este jframe
+                pestanitas.SetData(traertexto); // tambien enviamos nuestro texto obtenido del texto de area para trabajarlo en la otra ventana
                 
-                Grafo grafo = CargadorGrafo.cargarGrafoDesdeJson(traertexto);
-                pestanitas.GrafoInterfaz(grafo);
+                Grafo grafo = CargadorGrafo.cargarGrafoDesdeJson(traertexto); //creamos una variable de tipo Grafo y le pasamos el metodo correspondiente para crear nuestro grafo
+                pestanitas.GrafoInterfaz(grafo); //enviamos de igual forma el grafo creado para trabajarlo en la otra ventana
                 
-                pestanitas.setVisible(true);
-                this.setVisible(false);
+                pestanitas.setVisible(true); // abrimos la nueva ventana
+                this.setVisible(false); //cerramos esta ventana
                 
                 
             } else {

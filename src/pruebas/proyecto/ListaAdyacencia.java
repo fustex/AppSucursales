@@ -5,71 +5,89 @@
 package pruebas.proyecto;
 
 /**
- *
- * @author ffust
+ * Clase que representa una lista de adyacencia para el grafo.
+ * @author Francisco Fustero
  */
 public class ListaAdyacencia {
     private NodoListaAdyacencia head;
     private int size; 
     
-
+    /**
+     * Constructor de la clase de ListaAdyacencia
+     * @author Francisco Fustero
+     */
     public ListaAdyacencia() {
         this.head = null;
         this.size = 0;
     }
 
     /**
-     * @return the head
+     * obtenemos la cabeza (primer elemento) de la lista de adyacencia
+     * @author Francisco Fustero
+     * @return la cabeza
      */
     public NodoListaAdyacencia getHead() {
         return head;
     }
 
     /**
-     * @param head the head to set
+     * Colocamos quien sera la cabeza en nuestra lista de adyacencia
+     * @author Francisco Fustero
+     * @param head para establecer la cabeza
      */
     public void setHead(NodoListaAdyacencia head) {
         this.head = head;
     }
 
     /**
-     * @return the size
+     * Obtenemos el tamaño de la lista de adyacencia
+     * @author Francisco Fustero
+     * @return el tamaño
      */
     public int getSize() {
         return size;
     }
 
     /**
+     * Damos el tamaño de la lista de adyacencia
+     * @author Francisco Fustero
      * @param size the size to set
      */
     public void setSize(int size) {
         this.size = size;
     }
     
-    // agregar nodoGrafo Al principio de la lista de adyacencia 
 
     /**
-     *
-     * @param nuevoNodoGrafo1
-     
+     *Agregar un nodoGrafo al principio de la lista de adyacencia , puede ser una primitiva
+     * @author Francisco Fustero
+     * @param nuevoNodoGrafo1  para agregar este nodo al inicio
      */
     public void nuevaAdyacencia(NodoGrafo nuevoNodoGrafo1) {
-    if (nuevoNodoGrafo1 == null) {
-        throw new IllegalArgumentException("El nodo no puede ser nulo");
-    }
+        if (nuevoNodoGrafo1 == null) {
+            throw new IllegalArgumentException("El nodo no puede ser nulo");
+        }
 
-    // Verificar si ya existe la adyacencia
-    if (existeAdyacencia(nuevoNodoGrafo1)) {
-        System.out.println("La adyacencia ya existe.");
-        return; // No se agrega si ya existe
-    }
+        // Verificar si ya existe la adyacencia
+        if (existeAdyacencia(nuevoNodoGrafo1)) {
+            System.out.println("La adyacencia ya existe.");
+            return; // No se agrega si ya existe
+        }
 
-    NodoListaAdyacencia nuevo1 = new NodoListaAdyacencia(nuevoNodoGrafo1.getEstacion());
-    
-    nuevo1.setpNext(head);
-    head = nuevo1;
+        NodoListaAdyacencia nuevo1 = new NodoListaAdyacencia(nuevoNodoGrafo1.getEstacion());
+
+        nuevo1.setpNext(head);
+        head = nuevo1;
         
     }
+    
+    /**
+     * Elimina las adyacencias entre los nodos
+     * @author Francisco Fustero
+     * @param nodo1 para enlazar las adyacencias 
+     * @param nodo2 para enlazar las adyacencias
+     */
+    
     public static void eliminarAdyacenciasEntreNodos(NodoGrafo nodo1, NodoGrafo nodo2) {
         NodoListaAdyacencia aux1 = nodo1.getListaAdyacencia().head;
         NodoListaAdyacencia anterior1 = null;
@@ -107,6 +125,12 @@ public class ListaAdyacencia {
             }
         }
     }
+    
+    /**
+     * Metodo para imprimir las adyacencias por consola. Este metodo es de prueba para ver si funcionaba correctamente el metodo
+     * @author Francisco Fustero
+     */
+    
     public void imprimirAdyacencias() {
         NodoListaAdyacencia actual = head;
         while (actual != null) {
@@ -117,16 +141,23 @@ public class ListaAdyacencia {
 
         }
     
+    /**
+     * Metodo para verificar si existen adyacencias
+     * @author Francisco Fustero
+     * @param nodo para verificar y revisar si existe
+     * @return true si existe o false en caso contrario
+     */
+    
     public boolean existeAdyacencia(NodoGrafo nodo) {
     NodoListaAdyacencia actual = head; // Asumiendo que head es el inicio de la lista de adyacencias
 
-    while (actual != null) {
-        if (actual.estacion.equals(nodo.getEstacion())) { // Comparar estaciones
-            return true; // Ya existe la adyacencia
+        while (actual != null) {
+            if (actual.estacion.equals(nodo.getEstacion())) { // Comparar estaciones
+                return true; // Ya existe la adyacencia
+            }
+            actual = actual.getpNext(); // Avanzar al siguiente nodo de adyacencia
         }
-        actual = actual.getpNext(); // Avanzar al siguiente nodo de adyacencia
-    }
-    return false; // No existe adyacencia
+        return false; // No existe adyacencia
     }
 }
             
